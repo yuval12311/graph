@@ -10,6 +10,11 @@ You are allowed to add classes, methods, and members as required.
  *
  */
 public class Graph {
+
+    private HashTable idToNodeTable;
+    private Heap heap;
+    private int nodeCount;
+    private int edgeCount;
     /**
      * Initializes the graph on a given set of nodes. The created graph is empty, i.e. it has no edges.
      * You may assume that the ids of distinct nodes are distinct.
@@ -17,7 +22,14 @@ public class Graph {
      * @param nodes - an array of node objects
      */
     public Graph(Node [] nodes){
-        //TODO: implement this method.
+        nodeCount = nodes.length;
+        edgeCount = 0;
+        heap = new Heap(nodes);
+        idToNodeTable = new HashTable(nodeCount);
+        for (Node node :
+                nodes) {
+            idToNodeTable.insert(node.getId(), node);
+        }
     }
 
     /**
@@ -26,8 +38,7 @@ public class Graph {
      * @return a Node object representing the correct node. If there is no node in the graph, returns 'null'.
      */
     public Node maxNeighborhoodWeight(){
-        //TODO: implement this method.
-        return null;
+        return heap.max();
     }
 
     /**
@@ -38,8 +49,10 @@ public class Graph {
      * Otherwise, the function returns -1.
      */
     public int getNeighborhoodWeight(int node_id){
-        //TODO: implement this method.
-        return 0;
+
+        Node node = idToNodeTable.get(node_id);
+        if (node == null) return -1;
+        return node.getNeighborhoodWeight();
     }
 
     /**
@@ -53,8 +66,18 @@ public class Graph {
      * @return returns 'true' if the function added an edge, otherwise returns 'false'.
      */
     public boolean addEdge(int node1_id, int node2_id){
-        //TODO: implement this method.
-        return false;
+        Node node1, node2;
+        if (node1_id == node2_id || (node1 = idToNodeTable.get(node1_id)) == null || (node2 = idToNodeTable.get(node2_id)) == null) {
+            return false;
+        }
+        Neighborhood.Edge edge1 = node1.addEdge(node2);
+        Neighborhood.Edge edge2 = node2.addEdge(node1);
+        edge1.setOtherEdge(edge2);
+        edge2.setOtherEdge(edge1);
+        heap.update(node1.getIndexInHeap());
+        heap.update(node2.getIndexInHeap());
+        edgeCount++;
+        return true;
     }
 
     /**
@@ -64,32 +87,63 @@ public class Graph {
      * @return returns 'true' if the function deleted a node, otherwise returns 'false'
      */
     public boolean deleteNode(int node_id){
-        //TODO: implement this method.
-        return false;
+        Node node = idToNodeTable.get(node_id);
+        if (node == null) return false;
+        node.deleteFromNeighbors();
+        idToNodeTable.delete(node_id);
+        heap.delete(node.getIndexInHeap());
+        nodeCount--;
+        return true;
     }
+
+    public int getNumNodes() {return nodeCount;}
+    public int gtNumEdges() {return edgeCount;}
 
 
     /**
      * This class represents a node in the graph.
      */
-    public class Node{
+    public class Node implements Comparable<Node>{
+        private int id;
+        private int weight;
+        private Neighborhood neighborhood = new Neighborhood();
+        private int indexInHeap;
         /**
          * Creates a new node object, given its id and its weight.
          * @param id - the id of the node.
          * @param weight - the weight of the node.
          */
         public Node(int id, int weight){
-            //TODO: implement this method.
-            return;
+            this.id = id;
+            this.weight = weight;
         }
+
+        public void deleteFromNeighbors(){
+            for (Neighborhood.Edge edge :
+                    neighborhood) {
+                edge.getOtherEdge().delete();
+                int i = edge.getOtherEdge().getNode().getIndexInHeap();
+                edgeCount--;
+                heap.update(i);
+            }
+        }
+
+        public int getNeighborhoodWeight() {
+            return weight + neighborhood.getNeighborhoodSum();
+        }
+
+
+        public Neighborhood.Edge addEdge(Node other) {
+            return neighborhood.insert(other);
+        }
+
 
         /**
          * Returns the id of the node.
          * @return the id of the node.
          */
         public int getId(){
-            //TODO: implement this method.
-            return 0;
+            return id;
         }
 
         /**
@@ -97,8 +151,20 @@ public class Graph {
          * @return the weight of the node.
          */
         public int getWeight(){
-            //TODO: implement this method.
-            return 0;
+            return weight;
+        }
+
+        public int getIndexInHeap() {
+            return indexInHeap;
+        }
+
+        public void setIndexInHeap(int indexInHeap) {
+            this.indexInHeap = indexInHeap;
+        }
+
+        @Override
+        public int compareTo(Node o) {
+            return Integer.compare(this.getNeighborhoodWeight(), o.getNeighborhoodWeight());
         }
     }
 }
