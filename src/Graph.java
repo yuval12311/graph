@@ -4,6 +4,9 @@ You are required to implement the methods of this skeleton file according to the
 You are allowed to add classes, methods, and members as required.
  */
 
+import java.util.Iterator;
+import java.util.Random;
+
 /**
  * This class represents a graph that efficiently maintains the heaviest neighborhood over edge addition and
  * vertex deletion.
@@ -26,8 +29,7 @@ public class Graph {
         edgeCount = 0;
         heap = new Heap(nodes);
         idToNodeTable = new HashTable(nodeCount);
-        for (Node node :
-                nodes) {
+        for (Node node : nodes) {
             idToNodeTable.insert(node.getId(), node);
         }
     }
@@ -170,3 +172,266 @@ public class Graph {
 }
 
 
+
+class Heap {
+    private Graph.Node[] heap;
+    private int size;
+
+    public Heap(Graph.Node[] heap){
+        this.size = heap.length;
+        this.heap = copy(heap);
+        for (int i = size/2; i>=1; i--) {
+            heapifyDown(i);
+        }
+    }
+
+    public void update(int i) {
+        heapifyUp(i);
+        heapifyDown(i);
+    }
+
+    public void delete(int i) {
+        indexSwitch(i, size-1);
+        size--;
+        heapifyDown(i);
+    }
+
+    private Graph.Node[] copy(Graph.Node[] heap) {
+        Graph.Node[] res = new Graph.Node[heap.length];
+        for (int i = 0; i < heap.length; i++) {
+            res[i] = heap[i];
+            res[i].setIndexInHeap(i);
+        }
+        return res;
+    }
+
+    private void heapifyUp(int i) {
+        while (i > 0 && heap[i].compareTo(heap[parent(i)]) > 0) {
+            indexSwitch(i, parent(i));
+            i = parent(i);
+        }
+    }
+
+    private void heapifyDown(int i) {
+        int left = leftChild(i);
+        int right = rightChild(i);
+        int largest = i;
+        if (left < size && heap[left].compareTo(heap[largest]) > 0)
+            largest = left;
+        if (right < size && heap[right].compareTo(heap[largest]) > 0)
+            largest = right;
+        if (largest > i) {
+            indexSwitch(i, largest);
+            heapifyDown(largest);
+        }
+    }
+
+
+    private void indexSwitch(int i, int j) {
+        Graph.Node temp = heap[i];
+        heap[i] = heap[j];
+        heap[j] = temp;
+        heap[i].setIndexInHeap(i);
+        heap[j].setIndexInHeap(j);
+    }
+
+    public Graph.Node max() {
+        if (size == 0) return null;
+        return heap[0];
+    }
+
+    private int leftChild(int i) {
+        return 2 * (i + 1) - 1;
+    }
+    private int rightChild(int i) {
+        return 2 * (i + 1);
+    }
+    private int parent(int i) {
+        return (i+1)/2 -1 ;
+    }
+}
+
+
+class HashTable {
+    private HashTableNode[] table;
+    private int a, b, size;
+    public static int P = 1_000_000_009;
+
+    public HashTable(int size) {
+        this.size = size;
+        table = new HashTableNode[size];
+        Random random = new Random();
+        a = random.nextInt(P - 1) + 1;
+        b = random.nextInt(P);
+    }
+
+    private int hash(int n) {
+        return ((a*n+b)%P)%size;
+    }
+
+    public void insert(int id, Graph.Node node) {
+        int i = hash(id);
+        HashTableNode tableNode = new HashTableNode(id, node, table[i]);
+        table[i] = tableNode;
+    }
+
+    public Graph.Node get(int id) {
+        int i = hash(id);
+        HashTableNode tableNode = table[i];
+        while (tableNode != null) {
+            if (tableNode.getId() == id) return tableNode.getNode();
+            tableNode = tableNode.getNext();
+        }
+        return null;
+    }
+
+    public void delete(int id) {
+        int i = hash(id);
+        HashTableNode tableNode = table[i];
+        if (tableNode.getId() == id) {
+            table[i] = tableNode.getNext();
+        } else {
+            while (tableNode.next.getId() != id) {
+                tableNode = tableNode.getNext();
+            }
+            tableNode.setNext(tableNode.getNext().getNext());
+        }
+
+
+    }
+
+    private class HashTableNode {
+        private int id;
+        private Graph.Node node;
+        private HashTableNode next;
+
+        public HashTableNode(int id, Graph.Node node, HashTableNode next) {
+            this.id = id;
+            this.node = node;
+            this.next = next;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public Graph.Node getNode() {
+            return node;
+        }
+
+        public HashTableNode getNext() {
+            return next;
+        }
+
+        public void setNext(HashTableNode next) {
+            this.next = next;
+        }
+    }
+
+}
+class Neighborhood implements Iterable<Neighborhood.Edge> {
+    private Edge first;
+
+
+    public int getNeighborhoodSum() {
+        return neighborhoodSum;
+    }
+
+    private int neighborhoodSum;
+
+    /**
+     *
+     * @param node
+     * @return the edge that was inserted
+     */
+    public Edge insert(Graph.Node node) {
+        if (first == null) {
+            first = new Edge(node);
+            first.setNext(first);
+            first.setPrev(first);
+            neighborhoodSum += node.getWeight();
+            return first;
+        }
+        Edge newEdge = new Edge(node);
+        newEdge.setNext(first);
+        newEdge.setPrev(first.getPrev());
+        newEdge.getPrev().setNext(newEdge);
+        newEdge.getNext().setPrev(newEdge);
+        first = newEdge;
+        neighborhoodSum += node.getWeight();
+        return first;
+    }
+
+    @Override
+    public Iterator<Edge> iterator() {
+        return new Iterator<Edge>() {
+            Edge current = first;
+            @Override
+            public boolean hasNext() {
+                return current.getNext() != first;
+            }
+
+            @Override
+            public Edge next() {
+                Edge temp = current;
+                current = current.getNext();
+                return temp;
+            }
+        };
+    }
+
+
+
+
+    public class Edge {
+        private Graph.Node node;
+
+        private Edge next;
+        private Edge prev;
+
+        public Edge getOtherEdge() {
+            return otherEdge;
+        }
+
+        public void setOtherEdge(Edge otherEdge) {
+            this.otherEdge = otherEdge;
+        }
+
+        public Graph.Node getNode() {
+            return node;
+        }
+
+        private Edge otherEdge;
+
+        public Edge(Graph.Node node) {
+            this.node = node;
+        }
+
+        public Edge getNext() {
+            return next;
+        }
+
+        public void setNext(Edge next) {
+            this.next = next;
+        }
+
+        public Edge getPrev() {
+            return prev;
+        }
+
+        public void setPrev(Edge prev) {
+            this.prev = prev;
+        }
+
+        public void delete() {
+            if (next == this) {
+                first = null;
+                neighborhoodSum = 0;
+                return;
+            }
+            next.setPrev(prev);
+            prev.setNext(next);
+
+        }
+    }
+}
