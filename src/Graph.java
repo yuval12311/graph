@@ -14,8 +14,8 @@ import java.util.Random;
  */
 public class Graph {
 
-    private HashTable idToNodeTable;
-    private Heap heap;
+    private final HashTable idToNodeTable;
+    private final Heap heap;
     private int nodeCount;
     private int edgeCount;
     /**
@@ -91,7 +91,13 @@ public class Graph {
     public boolean deleteNode(int node_id){
         Node node = idToNodeTable.get(node_id);
         if (node == null) return false;
-        node.deleteFromNeighbors();
+        for (Neighborhood.Edge edge :
+                node.neighbours()) {
+            edge.getOtherEdge().delete();
+            int i = edge.getOtherEdge().getNode().getIndexInHeap();
+            edgeCount--;
+            heap.update(i);
+        }
         idToNodeTable.delete(node_id);
         heap.delete(node.getIndexInHeap());
         nodeCount--;
@@ -99,16 +105,16 @@ public class Graph {
     }
 
     public int getNumNodes() {return nodeCount;}
-    public int gtNumEdges() {return edgeCount;}
+    public int getNumEdges() {return edgeCount;}
 
 
     /**
      * This class represents a node in the graph.
      */
-    public class Node implements Comparable<Node>{
-        private int id;
-        private int weight;
-        private Neighborhood neighborhood = new Neighborhood();
+    public static class Node implements Comparable<Node>{
+        private final int id;
+        private final int weight;
+        private final Neighborhood neighborhood = new Neighborhood();
         private int indexInHeap;
         /**
          * Creates a new node object, given its id and its weight.
@@ -120,15 +126,9 @@ public class Graph {
             this.weight = weight;
         }
 
-        public void deleteFromNeighbors(){
-            for (Neighborhood.Edge edge :
-                    neighborhood) {
-                edge.getOtherEdge().delete();
-                int i = edge.getOtherEdge().getNode().getIndexInHeap();
-                edgeCount--;
-                heap.update(i);
-            }
-        }
+
+
+        public Neighborhood neighbours() {return this.neighborhood;}
 
         public int getNeighborhoodWeight() {
             return weight + neighborhood.getNeighborhoodSum();
@@ -174,7 +174,7 @@ public class Graph {
 
 
 class Heap {
-    private Graph.Node[] heap;
+    private final Graph.Node[] heap;
     private int size;
 
     public Heap(Graph.Node[] heap){
@@ -253,8 +253,8 @@ class Heap {
 
 
 class HashTable {
-    private HashTableNode[] table;
-    private int a, b, size;
+    private final HashTableNode[] table;
+    private final int a, b, size;
     public static int P = 1_000_000_009;
 
     public HashTable(int size) {
@@ -266,7 +266,7 @@ class HashTable {
     }
 
     private int hash(int n) {
-        return ((a*n+b)%P)%size;
+        return Math.floorMod(Math.floorMod(a*n+b, P), size);
     }
 
     public void insert(int id, Graph.Node node) {
@@ -301,8 +301,8 @@ class HashTable {
     }
 
     private class HashTableNode {
-        private int id;
-        private Graph.Node node;
+        private final int id;
+        private final Graph.Node node;
         private HashTableNode next;
 
         public HashTableNode(int id, Graph.Node node, HashTableNode next) {
@@ -368,7 +368,7 @@ class Neighborhood implements Iterable<Neighborhood.Edge> {
             Edge current = first;
             @Override
             public boolean hasNext() {
-                return current.getNext() != first;
+                return current != first;
             }
 
             @Override
@@ -384,7 +384,7 @@ class Neighborhood implements Iterable<Neighborhood.Edge> {
 
 
     public class Edge {
-        private Graph.Node node;
+        private final Graph.Node node;
 
         private Edge next;
         private Edge prev;
