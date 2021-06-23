@@ -1,11 +1,7 @@
-import javafx.util.Pair;
-
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Random;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
-import static java.util.stream.IntStream.range;
 
 public class GraphTester {
     public static void main(String[] args) {
@@ -16,19 +12,19 @@ public class GraphTester {
         for (int i = 6; i < 22; i++) {
 
             Graph g = new Graph(createNodes((int) Math.pow(2, i)));
-            randomEdges((int) Math.pow(2, i)).forEach(p -> g.addEdge(p.getKey(), p.getValue()));
-            System.out.printf("i = %d | n = %d | max deg = %d\n", i,(int) Math.pow(2, i), g.getNeighborhoodWeight(g.maxNeighborhoodWeight().getId()));
+            randomEdges((int) Math.pow(2, i)).forEach(p -> g.addEdge(p.getA(), p.getB()));
+            System.out.printf("i = %d | n = %d | max deg = %d\n", i,(int) Math.pow(2, i), g.getNeighborhoodWeight(g.maxNeighborhoodWeight().getId()) - 1);
         }
     }
 
-    public static HashSet<Pair<Integer, Integer>> randomEdges(int n) {
-        HashSet<Pair<Integer, Integer>> set = new HashSet<>();
+    public static HashSet<Pair> randomEdges(int n) {
+        HashSet<Pair> set = new HashSet<>();
         Random rnd = new Random();
         int a, b;
         while (set.size() <  n) {
             a = rnd.nextInt(n) + 1; b = rnd.nextInt(n) + 1;
             if (a != b) {
-                set.add(new Pair<>(rnd.nextInt(n) + 1, rnd.nextInt(n) + 1));
+                set.add(new Pair(a, b));
             }
 
         }
@@ -42,4 +38,37 @@ public class GraphTester {
         }
         return nodes;
     }
+
+    private static class Pair {
+        int a;
+        int b;
+
+        public Pair(int a, int b) {
+            this.a = a;
+            this.b = b;
+        }
+
+        public int getA() {
+            return a;
+        }
+
+        public int getB() {
+            return b;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Pair pair = (Pair) o;
+            return (a == pair.a && b == pair.b) || (a == pair.b && b == pair.a);
+        }
+
+        @Override
+        public int hashCode() {
+            int max = Math.max(a, b), min = Math.min(a, b);
+            return Objects.hash(max * (max + 1) / 2 + min);
+        }
+    }
+
 }

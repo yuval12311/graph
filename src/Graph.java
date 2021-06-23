@@ -4,7 +4,6 @@ You are required to implement the methods of this skeleton file according to the
 You are allowed to add classes, methods, and members as required.
  */
 
-import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -21,22 +20,23 @@ public class Graph {
     /**
      * Initializes the graph on a given set of nodes. The created graph is empty, i.e. it has no edges.
      * You may assume that the ids of distinct nodes are distinct.
-     *
+     * Time Complexity: O(n)
      * @param nodes - an array of node objects
      */
     public Graph(Node [] nodes){
         nodeCount = nodes.length;
         edgeCount = 0;
-        heap = new Heap(nodes);
-        idToNodeTable = new HashTable(nodeCount);
+        heap = new Heap(nodes); //O(n)
+        idToNodeTable = new HashTable(nodeCount); //O(n)
         for (Node node : nodes) {
-            idToNodeTable.insert(node.getId(), node);
+            idToNodeTable.insert(node.getId(), node); //O(1)
         }
     }
 
     /**
      * This method returns the node in the graph with the maximum neighborhood weight.
      * Note: nodes that have been removed from the graph using deleteNode are no longer in the graph.
+     * Time complexity: O(1)
      * @return a Node object representing the correct node. If there is no node in the graph, returns 'null'.
      */
     public Node maxNeighborhoodWeight(){
@@ -46,6 +46,7 @@ public class Graph {
     /**
      * given a node id of a node in the graph, this method returns the neighborhood weight of that node.
      *
+     * Expected time complexity: O(1)
      * @param node_id - an id of a node.
      * @return the neighborhood weight of the node of id 'node_id' if such a node exists in the graph.
      * Otherwise, the function returns -1.
@@ -62,7 +63,7 @@ public class Graph {
      * If one of these nodes is not in the graph, the function does nothing.
      * The two nodes must be distinct; otherwise, the function does nothing.
      * You may assume that if the two nodes are in the graph, there exists no edge between them prior to the call.
-     *
+     * Expected time complexity: O(log n)
      * @param node1_id - the id of the first node.
      * @param node2_id - the id of the second node.
      * @return returns 'true' if the function added an edge, otherwise returns 'false'.
@@ -85,26 +86,35 @@ public class Graph {
     /**
      * Given the id of a node in the graph, deletes the node of that id from the graph, if it exists.
      *
+     * Expected time complexity: O((d_v + 1) * log n)
      * @param node_id - the id of the node to delete.
      * @return returns 'true' if the function deleted a node, otherwise returns 'false'
      */
     public boolean deleteNode(int node_id){
         Node node = idToNodeTable.get(node_id);
         if (node == null) return false;
-        for (Neighborhood.Edge edge :
-                node.neighbours()) {
+        for (Neighborhood.Edge edge = node.neighbours().getFirst(); edge != node.neighbours().getFirst(); edge = edge.getNext()) { //O(d_v * log n)
             edge.getOtherEdge().delete();
             int i = edge.getOtherEdge().getNode().getIndexInHeap();
             edgeCount--;
-            heap.update(i);
+            heap.update(i); // O(log n)
         }
         idToNodeTable.delete(node_id);
-        heap.delete(node.getIndexInHeap());
+        heap.delete(node.getIndexInHeap()); //O(log n)
         nodeCount--;
         return true;
     }
 
+    /**
+     * Time complexity: O(1)
+     * @return
+     */
     public int getNumNodes() {return nodeCount;}
+
+    /**
+     * Time complexity: O(1)
+     * @return
+     */
     public int getNumEdges() {return edgeCount;}
 
 
@@ -118,6 +128,7 @@ public class Graph {
         private int indexInHeap;
         /**
          * Creates a new node object, given its id and its weight.
+         * Time complexity: O(1)
          * @param id - the id of the node.
          * @param weight - the weight of the node.
          */
@@ -127,14 +138,26 @@ public class Graph {
         }
 
 
-
+        /**
+         * Time complexity: O(1)
+         * @return The node's neighbors
+         */
         public Neighborhood neighbours() {return this.neighborhood;}
 
+        /**
+         * Time complexity: O(1)
+         * @return
+         */
         public int getNeighborhoodWeight() {
             return weight + neighborhood.getNeighborhoodSum();
         }
 
 
+        /**
+         * Time complexity: O(1)
+         * @param other
+         * @return
+         */
         public Neighborhood.Edge addEdge(Node other) {
             return neighborhood.insert(other);
         }
@@ -177,6 +200,10 @@ class Heap {
     private final Graph.Node[] heap;
     private int size;
 
+    /**
+     * Time complexity: O(n)
+     * @param heap
+     */
     public Heap(Graph.Node[] heap){
         this.size = heap.length;
         this.heap = copy(heap);
@@ -185,17 +212,31 @@ class Heap {
         }
     }
 
+    /**
+     * Time complexity: O(log n)
+     * @param i
+     */
     public void update(int i) {
         heapifyUp(i);
-        heapifyDown(i);
+        heapifyDown(i); // This will guarantee that the element in the i'th position will be where it is ought to be
     }
 
+    /**
+     * Time complexity: O(log n)
+     * @param i
+     */
     public void delete(int i) {
         indexSwitch(i, size-1);
+        heap[size-1] = null;
         size--;
         heapifyDown(i);
     }
 
+    /**
+     * Time complexity: O(n)
+     * @param heap
+     * @return
+     */
     private Graph.Node[] copy(Graph.Node[] heap) {
         Graph.Node[] res = new Graph.Node[heap.length];
         for (int i = 0; i < heap.length; i++) {
@@ -205,6 +246,10 @@ class Heap {
         return res;
     }
 
+    /**
+     * Time complexity: O(depth)
+     * @param i
+     */
     private void heapifyUp(int i) {
         while (i > 0 && heap[i].compareTo(heap[parent(i)]) > 0) {
             indexSwitch(i, parent(i));
@@ -212,6 +257,10 @@ class Heap {
         }
     }
 
+    /**
+     * Time complexity: O(height)
+     * @param i
+     */
     private void heapifyDown(int i) {
         int left = leftChild(i);
         int right = rightChild(i);
@@ -255,26 +304,47 @@ class Heap {
 class HashTable {
     private final HashTableNode[] table;
     private final int a, b, size;
-    public static int P = 1_000_000_009;
+    public static final int P = 1_000_000_009;
+    public static final double scaleFactor = 2;
 
+
+    /**
+     * Time complexity: O(n)
+     * @param size
+     */
     public HashTable(int size) {
-        this.size = size;
-        table = new HashTableNode[size];
+        this.size = (int) (scaleFactor * size);
+        table = new HashTableNode[this.size];
         Random random = new Random();
         a = random.nextInt(P - 1) + 1;
         b = random.nextInt(P);
     }
 
+    /**
+     * Time complexity: O(1)
+     * @param n
+     * @return
+     */
     private int hash(int n) {
         return Math.floorMod(Math.floorMod(a*n+b, P), size);
     }
 
+    /**
+     * Time complexity: O(1)
+     * @param id
+     * @param node
+     */
     public void insert(int id, Graph.Node node) {
         int i = hash(id);
         HashTableNode tableNode = new HashTableNode(id, node, table[i]);
         table[i] = tableNode;
     }
 
+    /**
+     * Expected time complexity: O(1)
+     * @param id
+     * @return
+     */
     public Graph.Node get(int id) {
         int i = hash(id);
         HashTableNode tableNode = table[i];
@@ -285,6 +355,10 @@ class HashTable {
         return null;
     }
 
+    /**
+     * Expected time complexity: O(1)
+     * @param id
+     */
     public void delete(int id) {
         int i = hash(id);
         HashTableNode tableNode = table[i];
@@ -300,7 +374,7 @@ class HashTable {
 
     }
 
-    private class HashTableNode {
+    private static class HashTableNode {
         private final int id;
         private final Graph.Node node;
         private HashTableNode next;
@@ -329,7 +403,7 @@ class HashTable {
     }
 
 }
-class Neighborhood implements Iterable<Neighborhood.Edge> {
+class Neighborhood{
     private Edge first;
 
 
@@ -340,7 +414,7 @@ class Neighborhood implements Iterable<Neighborhood.Edge> {
     private int neighborhoodSum;
 
     /**
-     *
+     * Time Complexity: O(1)
      * @param node
      * @return the edge that was inserted
      */
@@ -362,25 +436,10 @@ class Neighborhood implements Iterable<Neighborhood.Edge> {
         return first;
     }
 
-    @Override
-    public Iterator<Edge> iterator() {
-        return new Iterator<Edge>() {
-            Edge current = first;
-            @Override
-            public boolean hasNext() {
-                return current != first;
-            }
 
-            @Override
-            public Edge next() {
-                Edge temp = current;
-                current = current.getNext();
-                return temp;
-            }
-        };
+    public Edge getFirst() {
+        return first;
     }
-
-
 
 
     public class Edge {
@@ -423,12 +482,16 @@ class Neighborhood implements Iterable<Neighborhood.Edge> {
             this.prev = prev;
         }
 
+        /**
+         * Time complexity: O(1)
+         */
         public void delete() {
             if (next == this) {
                 first = null;
                 neighborhoodSum = 0;
                 return;
             }
+            neighborhoodSum -= node.getWeight();
             next.setPrev(prev);
             prev.setNext(next);
 

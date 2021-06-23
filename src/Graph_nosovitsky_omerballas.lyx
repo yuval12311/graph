@@ -1,0 +1,2713 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass heb-article
+\begin_preamble
+
+\usepackage[use-david]{culmus}
+
+\usepackage{titling}
+
+\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+
+
+
+
+
+\makeatletter
+
+\let\old@start@align\start@align
+
+\def\start@align{\setcounter{equation}{0}\old@start@align}
+
+\makeatother
+
+
+
+\newcommand{\idnumber}[1]{%
+
+\gdef\puA{#1}}
+
+\newcommand{\puA}{}
+
+\renewcommand{\maketitlehookc}{%
+
+\par \puA}
+
+
+
+\newcommand{\class}[1]{%
+
+\gdef\puB{#1}}
+
+\newcommand{\puB}{}
+
+\renewcommand{\maketitlehooka}{%
+
+\par \puB}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language hebrew
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "cmr" "Times New Roman"
+\font_sans "helvet" "Arial"
+\font_typewriter "cmtt" "Courier New"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\headheight 0.5in
+\headsep 0.5in
+\footskip 0.5in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+מבני נתונים: גרף
+\end_layout
+
+\begin_layout Author
+מגישים: יובל נוסוביצקי ועומר בלס
+\begin_inset Newline newline
+\end_inset
+
+תז:
+\family roman
+\series medium
+\shape up
+\size large
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $322450883$
+\end_inset
+
+, 
+\begin_inset Formula $xxxxxxxxx$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part*
+חלק
+\family roman
+\series bold
+\shape up
+\size larger
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+1
+\numeric off
+: הקוד
+\end_layout
+
+\begin_layout Section*
+מחלקת 
+\begin_inset Formula $\text{Node}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+מייצגת צומת בגרף.
+\end_layout
+
+\begin_layout Standard
+שדות המלחקה הם: 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+תפקיד
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+שם
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+שומר את המספר המזהה של הצומת
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{int id}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+שומר את המשקל של הצומת
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{int weight}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+שומר את שכניו של הצומת )פרטים בהמשך(
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{Neighborhood neighborhood}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+שומר את האינדקס שהצומת נמצא בו בערימה )פרטים בהמשך(
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{int indexInHeap}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+
+\lang english
+Node(int id, int weight)
+\end_layout
+
+\begin_layout Standard
+יוצר צומת חדש עם שדות 
+\begin_inset Formula $\text{int}$
+\end_inset
+
+ ו- 
+\begin_inset Formula $\text{weight }$
+\end_inset
+
+, שאר השדות מאותחלים ל
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $0\backslash{\tt null}$
+\end_inset
+
+.
+ זמן הריצה ב- 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection*
+
+\lang english
+Neighborhood neighbors()
+\end_layout
+
+\begin_layout Standard
+מחזיר את הייצוג של השכנים של הצומת, זמן הריצה 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+
+\lang english
+int getNeighborhoodWeight()
+\end_layout
+
+\begin_layout Standard
+מחזיר את סכום המשקלים של הצומת ושל שכניו.
+ מתבצעת רק קריאה ל 
+\begin_inset Formula ${\tt Neighborhood::getHeighborhoodSum}$
+\end_inset
+
+ וזה כפי שנראה בהמשף רץ ב- 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+, ולכן זמן הריצה של הפונ' הוא 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+Neighborhood.Edge addEdge(Node other)
+\end_layout
+
+\begin_layout Standard
+מוסיף אובייקט של קשת מהצומת לצומת 
+\begin_inset Formula ${\tt other}$
+\end_inset
+
+, ומחזיר את האובייקט הזה.
+ קורא ל- 
+\begin_inset Formula ${\tt Neighborhood::insert}$
+\end_inset
+
+ שהיא רצה ב- 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+ כפי שנראה בהמשך.
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+int compareTo(Node o)
+\end_layout
+
+\begin_layout Standard
+משווה בין הצומת הזו לצומת 
+\begin_inset Formula $o$
+\end_inset
+
+ לפי סכום שכניהם, רץ ב- 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section*
+מחלקת 
+\begin_inset Formula $\text{Heap}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+מחלקה זו היא ערימת מקסימום אשר שומרת את הצמתים בגף, כאשר הסגר הואכפי שהוגדר
+ בפונקציית ה 
+\begin_inset Formula ${\tt compareTo}$
+\end_inset
+
+, כלומר לפי סכום המשקלים שלהם ושל שכניהם.
+\end_layout
+
+\begin_layout Standard
+שדות המחלקה הם: 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+תפקיד
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+שם
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+שומר על כמות באיברים בערימה, כיוון שלא ניתן להוסיך צמתים המזפר יכול רק לקטון
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{int size}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+המערך שעליו נשמרת הערימה
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{Graph.Node[] heap}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+Heap(Graph.Node[] heap)
+\end_layout
+
+\begin_layout Standard
+פעולה זו יוצרת תחילה מעתיקה את תוכן המערך 
+\begin_inset Formula $\text{heap}$
+\end_inset
+
+ למערך פנימי 
+\begin_inset Formula $\text{\ensuremath{\text{this.heap}}}$
+\end_inset
+
+, זה כמובן לוקח 
+\begin_inset Formula $O\left(n\right)$
+\end_inset
+
+ זמן.
+ ניתן לחשוב על האיברים במערך כאיברים בעץ, כפי שראינו בכיתה.
+ לאחר מכן, היא תעבור על העץ מהצמתים מגובה
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+1
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\numeric off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+עד לשורש, ותקרא עבור כל אחד בפונקציה 
+\begin_inset Formula $\text{heapifyDown}$
+\end_inset
+
+.
+ נראה בקרוב כי פונקציה זו רצה בזמן 
+\begin_inset Formula $O\left(h\right)$
+\end_inset
+
+, כאשר 
+\begin_inset Formula $h$
+\end_inset
+
+ זה הכובה של הצומת.
+ לכן זמן הריצה של חלק זה של הקוד הוא: 
+\begin_inset Formula 
+\begin{align*}
+1\cdot\frac{n}{2}+2\cdot\frac{n}{4}+\ldots+k\cdot\underset{\text{no. of nodes at hight \ensuremath{k}}}{\underbrace{\frac{n}{2^{k}}}}+\ldots+n\cdot1 & =\sum_{i=1}^{\log_{2}n}i\cdot\frac{n}{2^{i}}\\
+ & =n\sum_{i=1}^{\log_{2}n}i\cdot\left(\frac{1}{2}\right)^{i}\\
+ & \le n\sum_{i=1}^{\infty}i\left(\frac{1}{2}\right)^{i}\\
+ & =n\frac{\frac{1}{2}}{\left(1-\frac{1}{2}\right)^{2}}\\
+ & =2n\\
+ & =O\left(n\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+ולכן זמן הריצה של הפונקציה הוא 
+\begin_inset Formula $O\left(n\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+Graph.Node[] copy(Graph.Node[] heap)
+\end_layout
+
+\begin_layout Standard
+מעתיק את האיברים של מערך למערך חדש שייצג את הערימה, ומעדכן את שדות ה 
+\begin_inset Formula $\text{indexInHeap}$
+\end_inset
+
+ בהתאם.
+ זמן הריצה הוא 
+\begin_inset Formula $O\left(n\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+void update(int i)
+\end_layout
+
+\begin_layout Standard
+פעולה זאת נקראת לאחר שמעדכנים את סכום שכניו של הצומת הנמצא באינדקס 
+\begin_inset Formula $i$
+\end_inset
+
+, וצריך לעדכן את מיקומו על מנת לשמר את תכונת הערימה.
+ זמן הריצה של 
+\begin_inset Formula $\text{heapifyUp}$
+\end_inset
+
+ ושל 
+\begin_inset Formula $\text{heapifyDown}$
+\end_inset
+
+ הם שניהם 
+\begin_inset Formula $O\left(\log n\right)$
+\end_inset
+
+, ולכן זה זמן הריצה של הפונ'.
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+void indexSwitch(int i, int j)
+\end_layout
+
+\begin_layout Standard
+מחליף בין שני האיברים הנמצאים במקומות ה
+\begin_inset Formula $i$
+\end_inset
+
+ וה- 
+\begin_inset Formula $j$
+\end_inset
+
+ במערך, מעדכן את שדה ה 
+\begin_inset Formula ${\tt indexInHeap}$
+\end_inset
+
+ שלהם בהתאם.
+ זמן ריצה: 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+void heapifyUp(int i)
+\end_layout
+
+\begin_layout Standard
+מבצע את אלגוריתם ה 
+\begin_inset Formula $\text{heapifyUp}$
+\end_inset
+
+ כפי שראינו בכיתה.
+ מכיוון שהוא עובר לכל היותר פעם אחת על כל גובה מעל הצומת, זמן הריצה של הפונקציה
+ היא 
+\begin_inset Formula $O\left(d\right)$
+\end_inset
+
+ כאשר 
+\begin_inset Formula $d$
+\end_inset
+
+ זה עומק הצומת בעץ, בפרט 
+\begin_inset Formula $O\left(\log n\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+void heapifyDown(int i)
+\end_layout
+
+\begin_layout Standard
+מבצע את אלגוריתם ה 
+\begin_inset Formula $\text{heapifyDown}$
+\end_inset
+
+ כפי שראינו בכיתה.
+ מכיוון שהוא עובר לכל היותר פעם אחת על כל גובה מתחת הצומת, זמן הריצה של
+ הפונקציה היא 
+\begin_inset Formula $O\left(h\right)$
+\end_inset
+
+ כאשר 
+\begin_inset Formula $h$
+\end_inset
+
+ זה גובה הצומת בעץ, בפרט 
+\begin_inset Formula $O\left(\log n\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+void delete(int i)
+\end_layout
+
+\begin_layout Standard
+מבצע את אלוגריתם המחיקה מערימה כפי שראינו בכיתה, מעביק את האיבר במקום ה
+ 
+\begin_inset Formula $\text{size}-1$
+\end_inset
+
+ לאינדקס 
+\begin_inset Formula $i$
+\end_inset
+
+, ואז מבצע 
+\begin_inset Formula $\text{heapifyDown}$
+\end_inset
+
+, לכן זמן הריצה יהיה 
+\begin_inset Formula $O\left(\log n\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+Graph.Node max()
+\end_layout
+
+\begin_layout Standard
+מחזיר את הצומת עם סכום השכנים המקסימלי, זמן הריצה הוא 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+ שכן צומת זה הוא פשוט הצומת באינדקס 
+\begin_inset Formula $0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+int leftChild(int i)
+\end_layout
+
+\begin_layout Standard
+מחזיר את האינדקס של הבן הימני של הצומת במקום ה 
+\begin_inset Formula $i$
+\end_inset
+
+, זמן הריצה הוא 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+int rightChild(int i)
+\end_layout
+
+\begin_layout Standard
+מחזיר את האינדקס של הבן הימני של הצומת במקום ה 
+\begin_inset Formula $i$
+\end_inset
+
+, זמן הריצה הוא 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+int parent(int i)
+\end_layout
+
+\begin_layout Standard
+מחזיר את האינדקס של האב של הצומת במקום ה 
+\begin_inset Formula $i$
+\end_inset
+
+, זמן הריצה הוא 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section*
+מחלקת 
+\begin_inset Formula $\text{HashTable}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+מחלקה זאת מתחזקת טבלאת האש, אשר שומרת לכל מספר מזהה של צומת מצביע לצומת
+ עצמו.
+\end_layout
+
+\begin_layout Standard
+שדות המחלקה הם: 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+תפקיד
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+שם
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+שומר על גודל הבטלא, פרופורציונלי לכמות הצמתים ההתחלתית.
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{int size}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+מערך של רשימות מקושרות, כאשר כל חוליה בכל רשימה מקושרת מחזיקה צומת ומספר
+ מזהה שלו.
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{HashTableNode[] table}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+פרמטרים של פונקציית ההאש, 
+\begin_inset Formula $P$
+\end_inset
+
+ קבוע מראש, 
+\begin_inset Formula $a,b$
+\end_inset
+
+ נקבעים באקראיות בזמן הריצה.
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{int a, b, P}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+פקטור הפרופורציה בין כמות הצמתים ההתחלתית לגודל הטבלא
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{static double scaleFactor}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+בנוסף יש את המחלקה הפנימית 
+\begin_inset Formula $\text{\text{HashTableNode}}$
+\end_inset
+
+ אשר מייצגת רשימה מקושרת כאשר בכל חולייה שמור צומת ומספר מזהה שלו.
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+HashTable(int size)
+\end_layout
+
+\begin_layout Standard
+פעולה זו מאתחלת את טבלאת ההאש, ויוצרת את הפרמטרים לפונקציית ההאש זמן הריצה
+ שלה הוא 
+\begin_inset Formula $O\left(n\right)$
+\end_inset
+
+ שכן היא יוצרת מערך בגודל 
+\begin_inset Formula $\text{scaleFactor}\cdot n$
+\end_inset
+
+, ושאר הפעולות לוקחות 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+int hash(int i)
+\end_layout
+
+\begin_layout Standard
+פעולה זו מפעילה את פונקציית ההאש שנקבעה על מספר 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ זמן הריצה הוא 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+void insert(int id, Graph.Node node)
+\end_layout
+
+\begin_layout Standard
+מכניס את הצומת והמספר המזהה לטבלאת ההאש.
+ פעולה זו לוקחת 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+, שכן למצוא את ההאש זה 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+, ולהכניס איבר בתחילת רשימה מקושרת זה 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+Graph.Node get(int id)
+\end_layout
+
+\begin_layout Standard
+הפעולה מחפשת את הצומת המתאים ל 
+\begin_inset Formula $\text{\ensuremath{\text{id}}}$
+\end_inset
+
+מסויים.
+ הפועלה מבצעת 
+\begin_inset Formula $\text{hash}$
+\end_inset
+
+ על 
+\begin_inset Formula $\text{id}$
+\end_inset
+
+, ואז עוברת על הרשימה המקושרת שיש באינדקס הזה במערך, עד שהיא מוצאת את ה
+\begin_inset Formula $\text{id}$
+\end_inset
+
+ המתאים, אם בכלל.
+ בתוחלת יש 
+\begin_inset Formula $O\left(\alpha\right)=O\left(\frac{1}{\text{scaleFactor}}\right)=O\left(1\right)$
+\end_inset
+
+ איברים ברשימה המקושרת הזו, ולכן סיבוגיות הזמן של הפועלה התוחלת היא 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+void delete(int id)
+\end_layout
+
+\begin_layout Standard
+הפעולה מוחקת את הצומת המתאים ל- 
+\begin_inset Formula $\text{id}$
+\end_inset
+
+ מהטבלא.
+ תחילה היא תבצע 
+\begin_inset Formula $\text{hash}$
+\end_inset
+
+ ל-
+\begin_inset space \space{}
+\end_inset
+
+
+\begin_inset Formula $\text{id}$
+\end_inset
+
+, ואז תעבור על הרשימה המקושרת שיש באינדקס זה בטלא ותמחק את הצומת הרלוונטי.
+ יש 
+\begin_inset Formula $O\left(\alpha\right)=O\left(\frac{1}{\text{scaleFactor}}\right)=O\left(1\right)$
+\end_inset
+
+ איברים ברשימה זו בתוחלת, ולכן סיבוכיו הזמן של הפכולה בתוחלת היא 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section*
+מחלקת 
+\begin_inset Formula $\text{Neighborhood}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+מחלקה זו מייצגת את שכניו של צומת מסויים בעזרת רשימה מקושרת דו כיוונית של
+ הצמתים.
+\end_layout
+
+\begin_layout Standard
+במחלקה יש מחלקה פנימית בשם 
+\begin_inset Formula $\text{Edge}$
+\end_inset
+
+ אשר מייצגת קשת אחת ברשימה המקושרת, להלן שדות במחלקה:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+תפקיד
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+שם
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+הצומת השני שאליו מחוברת הקשת
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{Graph.Node node}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+הקשת הבאה הרשימה
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{Edge next}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+הקשת הקודמת ברשימה
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{Edge prev}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+מצביע לייצוג השני של הקשת
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{Edge otherEdge}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+המלחה 
+\begin_inset Formula $\text{Edge}$
+\end_inset
+
+ ישנה פעולה אחת )חוץ מגטרים וסטרים( 
+\begin_inset Formula $\text{void delet()}$
+\end_inset
+
+, שהיא פעולה המוחקת את הקשת עצמה מהרשימה הדו כיוונית שבא היא נמצא, ומעדכנת
+ את 
+\begin_inset Formula $\text{neighborhhodSum}$
+\end_inset
+
+ בהתאם, והיא בסיבוגיות 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+נתאר כעט את מחלקת 
+\begin_inset Formula $\text{Neighborhood}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+שדות המחלקה הם:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+תפקיד
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+שם
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+מצביע לקשת הראשונה ברשימה
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{Edge first}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+מחזיק את סכום המשקלים של הצמתים בשכונה
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{int neighborhoodSum}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+Edge insert(Graph.Node node)
+\end_layout
+
+\begin_layout Standard
+הפעולה יוצאת קשת חדשה מהצומת של השכונה הזו, ל-
+\begin_inset Formula $\text{node}$
+\end_inset
+
+, הפעולה פשוט מכניה איבר לתחילה של רשימה מקושרת דו כיוונית, ומעדכנת פוינטרים
+ ואת 
+\begin_inset Formula $\text{neighborhoodSum}$
+\end_inset
+
+, ולכן זמן הריצה שלה הוא 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+.
+ הפועלה מחזירה את הקשת שיצרה.
+\end_layout
+
+\begin_layout Section*
+מחלקת 
+\begin_inset Formula $\text{Graph}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+מחלקה זו מייצגת את הגרף שרצינו.
+ היא מתחזקת טבלאת האש שמעבירה מספרים מזהים ומצביעים למצמתים בגרף, וערימת
+ מקסימום כפי שראינו קודם.
+ שדות המחלקה הם כאלה:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+תפקיד
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+שם
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+טבלאת האש ממספרים מזהים לצמתים
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{HashTable idToNodeTable}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ערימת מקסימום המסודרת לפי סכום המקשלים של השכונות של הצמתים
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{Heap heap}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+מספר הצמתים שכרגע בגרף
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{int nodeCount}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+מספר הקשתות שכרגע בגרף
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{int edgeCount}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+Graph(Node[] nodes)
+\end_layout
+
+\begin_layout Standard
+הפעולה הבונה של הגרף.
+ מאתחלת את השדות שסופרים את הקשתות ואת הצמתים, יוצרת ערימה מהצמתים כפי שראינו
+ ב-
+\begin_inset Formula $O\left(n\right)$
+\end_inset
+
+, ויוצרת טבלאת האש חדשה לצמתים, גם כן ב- 
+\begin_inset Formula $O\left(n\right)$
+\end_inset
+
+, ואז עוברת על הצמתים ומוסיפה אותם לטבלה, כל הוספה זה 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+ ולכן גם זה לוקח 
+\begin_inset Formula $O\left(n\right)$
+\end_inset
+
+.
+ לכן סיבוכיות הזמן של הפעולה היא 
+\begin_inset Formula $O\left(n\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+Node maxNeghborhoodWeight()
+\end_layout
+
+\begin_layout Standard
+מוצא את משקל השכונה הכי גבוה בעזרת ערימת המקסימום, ב- 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+int getNeighborhoodWeight(int node_id)
+\end_layout
+
+\begin_layout Standard
+תחילה מוצאת את הצומת עם המספר המזהה הזה, בעזרת טבלאת ההאש, ב
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+ בתוחלת, ואז קוראת ל- 
+\begin_inset Formula $\text{Node::getNeighborhoodWeight}$
+\end_inset
+
+ שכפי שראינו לוקחת 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+.
+ לכן סך הכל, סיבוכיות הזמן של הפעולה הזו היא 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+ בתוחלת.
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+boolean addEdge(int node1_id, int node2_id)
+\end_layout
+
+\begin_layout Standard
+תחילה הפעולה תמצא את הצמתים עם המספרים המזהיים הללו, ב 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+ בתוחלת.
+ אם אחד מהם לא קיים, או שהם שווים, הפעולה תחזיר 
+\begin_inset Formula $\text{false}$
+\end_inset
+
+.
+ אחרת, הפעולה תוסיף את 
+\begin_inset Formula $\text{node1}$
+\end_inset
+
+ לשכנים של 
+\begin_inset Formula $\text{node2}$
+\end_inset
+
+, והפוך, ואז תדאג לכך שהקשתות שנוצרו מצביעות אחת על השניה, ואז יועדכנו המקומות
+ שלהם בערימה, וזה לוקח 
+\begin_inset Formula $O\left(\log n\right)$
+\end_inset
+
+ זמן כפי שראינו.
+ לכן סיבוכיות הפעולה הכוללת היא 
+\begin_inset Formula $O\left(\log n\right)$
+\end_inset
+
+ בתוחלת.
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+boolean deleteNode(int node_id)
+\end_layout
+
+\begin_layout Standard
+תחילה הפעולה תמצא את הצומת עם המספר המזהה הזה בעזרת הטבלה ב
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+ בתוחלת.
+ אם הוא לא קיים תחזיר 
+\begin_inset Formula $\text{false}$
+\end_inset
+
+.
+ אם קיים, תעבור על כל הצמתים עם קשת שמצביע על הצומת, ותמחק מהם את הצומת
+ הנ
+\begin_inset Quotes erd
+\end_inset
+
+ל, ואז תעדכן את המיקום בערימה.
+ עדכון המיקום בערימה לוקח 
+\begin_inset Formula $O\left(\log n\right)$
+\end_inset
+
+, ויש 
+\begin_inset Formula $d_{v}$
+\end_inset
+
+ שכנים, לכן חלק זה יקח 
+\begin_inset Formula $O\left(\left(d_{v}+1\right)\log n\right)$
+\end_inset
+
+.
+ לאחר מכן הפעולה תמחק את הצומת מטבלה, ב
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+ בתוחלת, ואז תמחק את הצומת מהערימה ב 
+\begin_inset Formula $O\left(\log n\right)$
+\end_inset
+
+.
+ סה
+\begin_inset Quotes erd
+\end_inset
+
+כ זמן הריצה של הפעולה הוא 
+\begin_inset Formula $O\left(\left(d_{v}+1\right)\log n\right)$
+\end_inset
+
+ בתוחלת.
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+getNumNodes()
+\end_layout
+
+\begin_layout Standard
+מחזיר את השדה, 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+
+\lang english
+getNumEdges()
+\end_layout
+
+\begin_layout Standard
+מחזיר את השדה, 
+\begin_inset Formula $O\left(1\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part*
+חלק
+\family roman
+\series bold
+\shape up
+\size larger
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+2
+\numeric off
+: מדידות
+\end_layout
+
+\begin_layout Standard
+הנה תוצאות במדידות:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="17" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $3\cdot\frac{\log_{2}n}{\log_{2}\log_{2}n}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+דרגה מקסימלית
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $n$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $i$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $6.96335053$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $64$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $7.480350929$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $128$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $8$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $256$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+8 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $8.517551673$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $512$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+9 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $9.03089987$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1024$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+10
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $9.539139268$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $2048$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+11
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10.04194604$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+10
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $4096$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+12
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10.53928802$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+9
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $8192$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+13
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $11.03128047$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+10
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $16384$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+14
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $11.51811112$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+11
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $32768$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+15
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $12$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+10
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $65536$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+16
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $12.47717765$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+11
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $131072$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+17
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $12.94987319$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+14
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $262144$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+18
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $13.41830806$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+11
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $524288$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+19
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $13.88269279$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+12
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1048576$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+20
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $14.34322567$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+13
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $2097152$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\numeric on
+21
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+הבעיה שלנו היא ווריאציה על הבעיה המוצגת בלינק.
+ כאן ניתן לחשוב על כל צומת כעל סל, וכל קשת היא כדור.
+ אבל במקום שכל כדור יכנס לסל אחד, כאן כל כדור נכנס לשני סלים, כלומר מגדיל
+ את הדרגה של שני צמתים.
+ בדך הויקיפדיה מוצגת נוסחה לתוחלת כמות הכדורים בכל סל, וניתן לראות כי בווריאציה
+ הזו של הבעיה, אנחנו מקבלים בערך כפולה סקלרית של הנובחה המוצגת שם.
+\end_layout
+
+\end_body
+\end_document
